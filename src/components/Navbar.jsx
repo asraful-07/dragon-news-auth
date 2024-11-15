@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import user from "../assets/images/user.png";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="flex justify-between items-center p-4">
-      <div className="logo-container">
-        {/* Logo or brand name can be added here if needed */}
-      </div>
+      <div className="logo-container">{user.name}</div>
       <div className="space-x-6 text-lg font-medium">
         <NavLink to="/" className="hover:text-blue-500">
           Home
