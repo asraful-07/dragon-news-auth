@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
+  const { createUser, setUser } = useContext(AuthContext);
+  const handelRegister = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const photoUrl = e.target.photoUrl.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(name, photoUrl, email, password);
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        setUser(result.user);
+      })
+      .catch((error) => {
+        console.log("ERROR", error.message);
+      });
+
+    // Clear the form inputs
+    e.target.reset();
+  };
+
   return (
     <div className="hero">
       <div className="hero-content flex-col">
         <div className="card bg-base-100 w-full max-w-2xl shrink-0 shadow-2xl p-6">
-          <form className="card-body">
+          <form onSubmit={handelRegister} className="card-body">
             <h1 className="text-3xl font-semibold text-center mb-6">
               Register your account
             </h1>
@@ -81,7 +103,7 @@ const Register = () => {
             <p className="p-4 text-black text-sm">
               Dont’t Have An Account ?{" "}
               <Link to="/auth/login" className="text-red-600 font-semibold">
-                Register
+                Login
               </Link>
             </p>
           </form>

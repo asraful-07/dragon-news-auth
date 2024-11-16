@@ -4,6 +4,8 @@ import CategoryNews from "../pages/CategoryNews";
 import AuthLayout from "../layout/AuthLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import NewsDetails from "../pages/NewsDetails";
+import NewRouter from "./NewRouter";
 
 const routes = createBrowserRouter([
   {
@@ -25,8 +27,14 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    path: "/news",
-    element: <h1>news layout</h1>,
+    path: "/news/:id",
+    element: (
+      <NewRouter>
+        <NewsDetails />
+      </NewRouter>
+    ),
+    loader: ({ params }) =>
+      fetch(`https://openapi.programming-hero.com/api/news/${params.id}`),
   },
   {
     path: "/auth",

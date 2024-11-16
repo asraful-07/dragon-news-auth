@@ -1,8 +1,10 @@
 import React from "react";
 import { FaStar, FaEye } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const NewsCard = ({ news }) => {
   const {
+    news_id,
     title,
     author: { name, published_date, img },
     rating: { number },
@@ -29,11 +31,13 @@ const NewsCard = ({ news }) => {
       <img
         src={thumbnail_url}
         alt="news"
-        className="w-full object-cover rounded mb-3"
+        className="w-full  h-[400px] object-cover rounded mb-3"
       />
       <p className="text-gray-600 mb-3">
         {details.slice(0, 150)}...{" "}
-        <span className="text-orange-500">Read More</span>
+        <Link to={`/news/${news._id}`} className="text-orange-500">
+          Read More
+        </Link>
       </p>
       <div className="flex justify-between items-center border-t pt-3">
         <div className="flex items-center">
